@@ -1,0 +1,27 @@
+{
+  "name": "natours",
+  "version": "1.0.0",
+  "description": "Learning node, express and mongoDB",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Elena-Lin-616/Natours.git"
+  },
+  "keywords": [
+    "express",
+    "node",
+    "mongoDB"
+  ],
+  "author": "Na Lin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Elena-Lin-616/Natours/issues"
+  },
+  "homepage": "https://github.com/Elena-Lin-616/Natours#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
