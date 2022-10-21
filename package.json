@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Elena-Lin-616/Natours.git"
+    "url": "https://github.com/Elena-Lin-616/Natours.git"
   },
   "keywords": [
     "express",
@@ -23,5 +23,8 @@
   "homepage": "https://github.com/Elena-Lin-616/Natours#readme",
   "devDependencies": {
     "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
   }
 }
