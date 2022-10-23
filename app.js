@@ -1,13 +1,25 @@
 const fs = require('fs');
 const express = require('express');
-const { toUSVString } = require('util');
+const morgan = require('morgan');
 // todo 1: create and start a server
 // todo 2: handle HTTP method: CRUD
+// todo 3: understand and use middleware and request & response cycle
 const app = express();
+// use 3rd party middleware
+app.use(morgan('dev'));
+
+// create own middlerware
+app.use((req, res, next) => {
+  console.log('Hello from request-response cycle');
+  next();
+});
+
 app.use(express.json());
+
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`, 'utf-8')
 );
+
 const getAllTours = (req, res) => {
   res.status(200).json({
     status: 'success',
@@ -17,6 +29,7 @@ const getAllTours = (req, res) => {
     },
   });
 };
+
 const getTour = (req, res) => {
   const id = req.params.id * 1;
   const tour = tours.find((el) => el.id === id);
