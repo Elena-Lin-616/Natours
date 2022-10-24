@@ -22,6 +22,9 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
+// serve static file from file system, instead of route
+app.use(express.static(`${__dirname}/public`));
+
 app.use('/api/v1/tours', tourRoute);
 app.use('/api/v1/users', userRoute);
 
