@@ -1,10 +1,16 @@
-const fs = require('fs');
 const express = require('express');
+
 const morgan = require('morgan');
+
+const tourRoute = require('./routes/tourRoutes');
+const userRoute = require('./routes/userRoutes');
+
 // todo 1: create and start a server
 // todo 2: handle HTTP method: CRUD
 // todo 3: understand and use middleware and request & response cycle
+// todo 4: refactor to build a better file strucutre
 const app = express();
+
 // use 3rd party middleware
 app.use(morgan('dev'));
 
@@ -16,132 +22,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`, 'utf-8')
-);
+app.use('/api/v1/tours', tourRoute);
+app.use('/api/v1/users', userRoute);
 
-const getAllTours = (req, res) => {
-  res.status(200).json({
-    status: 'success',
-    results: tours.length,
-    body: {
-      tours,
-    },
-  });
-};
-
-const getTour = (req, res) => {
-  const id = req.params.id * 1;
-  const tour = tours.find((el) => el.id === id);
-  if (!tour) {
-    return res.status(404).json({
-      status: 'fail',
-      message: 'invalid id',
-    });
-  }
-  res.status(200).json({
-    status: 'success',
-    body: {
-      tour,
-    },
-  });
-};
-const createTour = (req, res) => {
-  console.log(req.body);
-  const newID = tours.at(-1).id + 1;
-  const newTour = Object.assign({ id: newID }, req.body);
-  tours.push(newTour);
-  fs.writeFile(
-    `${__dirname}/dev-data/data/tours-simple.json`,
-    JSON.stringify(tours),
-    (err) => {
-      res.status(201).json({
-        status: 'success',
-        data: {
-          tour: newTour,
-        },
-      });
-    }
-  );
-};
-const updateTour = (req, res) => {
-  const id = req.params.id * 1;
-  const tour = tours.find((el) => el.id === id);
-  if (!tour) {
-    return res.status(404).json({
-      status: 'fail',
-      body: {
-        message: 'Invalid ID',
-      },
-    });
-  }
-  res.status(200).json({
-    status: 'success',
-    body: {
-      tour,
-    },
-  });
-};
-const deleteTour = (req, res) => {
-  const id = req.params.id * 1;
-
-  if (id > tours.length - 1) {
-    return res.status(404).json({
-      status: 'fail',
-      body: {
-        message: 'Invalid ID',
-      },
-    });
-  }
-  res.status(200).json({
-    status: 'success',
-    body: null,
-  });
-};
-const getAllUsers = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'Not yet be handler by servers',
-  });
-};
-const getUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'Not yet be handler by servers',
-  });
-};
-const createUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'Not yet be handler by servers',
-  });
-};
-const updateUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'Not yet be handler by servers',
-  });
-};
-const deleteUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'Not yet be handler by servers',
-  });
-};
-app.route('/api/v1/tours').get(getAllTours).post(createTour);
-app
-  .route('/api/v1/tours/:id')
-  .get(getTour)
-  .patch(updateTour)
-  .delete(deleteTour);
-
-app.route('/api/v1/users').get(getAllUsers).put(createUser);
-app
-  .route('./api/v1/users/:id')
-  .get(getUser)
-  .patch(updateUser)
-  .delete(deleteUser);
-const port = 3000;
-app.listen(port, () => {
-  console.log(`App is listening on port ${port}`);
-});
+module.exports = app;
