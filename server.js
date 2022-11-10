@@ -21,18 +21,6 @@ mongoose
     console.log('DB connect successful');
   });
 
-// todo: create a document based on model
-// const testTour = new Tour({
-//   name: 'The hiking adventure',
-//   rating: 4.9,
-//   price: 230,
-// });
-
-// testTour
-//   .save()
-//   .then((doc) => console.log(doc))
-//   .catch((err) => console.log(`😞 there is some error : ${err}`));
-
 const app = require('./app');
 
 const port = process.env.PORT || 3000;
