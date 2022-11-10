@@ -28,4 +28,5 @@ app.use(express.static(`${__dirname}/public`));
 app.use('/api/v1/tours', tourRoute);
 app.use('/api/v1/users', userRoute);
 
+// error handler middleware
 module.exports = app;
