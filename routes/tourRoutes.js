@@ -4,7 +4,7 @@ const router = express.Router();
 
 // todo : route for parameters
 
-router.param('id', tourController.checkID);
+// router.param('id', tourController.checkID);
 
 router
   .route('/')
