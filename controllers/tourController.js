@@ -45,6 +45,11 @@ exports.getTour = (req, res) => {
 };
 exports.createTour = async (req, res) => {
   try {
+    // old way to create a document based on model
+    // const newTour = new Tour(req.body);
+    // newTour.save(); //return promise
+
+    // return promise
     const newTour = await Tour.create(req.body);
 
     res.status(201).json({
